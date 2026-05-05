@@ -1,0 +1,69 @@
+name: MarTrack Lab - Deploy
+
+on:
+  push:
+    branches:
+      - dev
+      - staging
+      - main
+
+jobs:
+  development:
+    if: github.ref_name == 'dev'
+    runs-on: ubuntu-latest
+    environment: development
+
+    steps:
+      - name: Descargar código del repositorio
+        uses: actions/checkout@v4
+
+      - name: Mostrar versión en DEVELOPMENT
+        run: |
+          echo "================================="
+          echo "ENTORNO: DEVELOPMENT"
+          echo "RAMA: dev"
+          echo "Versión:"
+          cat app/version.txt
+          echo "Mensaje:"
+          cat app/message.txt
+          echo "================================="
+
+  staging:
+    if: github.ref_name == 'staging'
+    runs-on: ubuntu-latest
+    environment: staging
+
+    steps:
+      - name: Descargar código del repositorio
+        uses: actions/checkout@v4
+
+      - name: Mostrar versión en STAGING
+        run: |
+          echo "================================="
+          echo "ENTORNO: STAGING"
+          echo "RAMA: staging"
+          echo "Versión:"
+          cat app/version.txt
+          echo "Mensaje:"
+          cat app/message.txt
+          echo "================================="
+
+  production:
+    if: github.ref_name == 'main'
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - name: Descargar código del repositorio
+        uses: actions/checkout@v4
+
+      - name: Mostrar versión en PRODUCTION
+        run: |
+          echo "================================="
+          echo "ENTORNO: PRODUCTION"
+          echo "RAMA: main"
+          echo "Versión:"
+          cat app/version.txt
+          echo "Mensaje:"
+          cat app/message.txt
+          echo "================================="
